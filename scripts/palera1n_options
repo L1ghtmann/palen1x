@@ -21,7 +21,7 @@ actcheckbox=black,green
 whiptail_height="$(($(tput lines) - 6))"
 whiptail_width="$(($(tput cols) - 20))"
 
-if [ "$jbtype" = "Rootless" ]; then
+if [[ $jbtype == Rootless ]]; then
   OPTIONS="$(whiptail --separate-output --nocancel --ok-button "Select" --title "palera1n options" --checklist \
   "Press spacebar to select option, and enter to complete" 15 54 5 \
   "1" "Verbose" OFF \
@@ -29,23 +29,23 @@ if [ "$jbtype" = "Rootless" ]; then
   "3" "Force Revert" OFF \
   "4" "Serial" OFF \
   "5" "Debug" ON 3>&1 1>&2 2>&3)"
-  if [ $? = 0 ]; then
-      output=""
-      for OPTION in $OPTIONS; do
-          case $OPTION in
-              "1") output1="-V";;
-              "2") output2="-s";;
-              "3") output3="--force-revert";;
-              "4") output4="-e 'serial=3'";;
-              "5") output5="-v";;
-          esac
-      done
-      echo "$output1 $output2 $output3 $output4 $output5" > /usr/bin/.args
-      /usr/bin/palera1n_menu
+  if [[ $? -eq 0 ]]; then
+	  output=""
+	  for OPTION in $OPTIONS; do
+		  case $OPTION in
+			  "1") output1="-V";;
+			  "2") output2="-s";;
+			  "3") output3="--force-revert";;
+			  "4") output4="-e 'serial=3'";;
+			  "5") output5="-v";;
+		  esac
+	  done
+	  echo "$output1 $output2 $output3 $output4 $output5" > /usr/bin/.args
+	  /usr/bin/palera1n_menu
   else
-      echo "Cancelled"
+	  echo "Cancelled"
   fi
-elif [ "$jbtype" = "Rootful" ]; then
+elif [[ $jbtype == Rootful ]]; then
   OPTIONS="$(whiptail --separate-output --nocancel --ok-button "Select" --title "palera1n options" --checklist \
   "Press spacebar to select option, and enter to complete" 15 54 5 \
   "1" "Create FakeFS" OFF \
@@ -55,22 +55,22 @@ elif [ "$jbtype" = "Rootful" ]; then
   "5" "Restore RootFS" OFF \
   "6" "Serial" OFF \
   "7" "Debug" ON 3>&1 1>&2 2>&3)"
-  if [ $? = 0 ]; then
-      output=""
-      for OPTION in $OPTIONS; do
-          case $OPTION in
-              "1") output1="-c";;
-              "2") output2="-B";;
-              "3") output3="-V";;
-              "4") output4="-s";;
-              "5") output5="--force-revert";;
-              "6") output6="-e 'serial=3'";;
-              "7") output7="-v";;
-          esac
-      done
-      echo "$output1 $output2 $output3 $output4 $output5 $output6 $output7" > /usr/bin/.args
-      /usr/bin/palera1n_menu
+  if [[ $? -eq 0 ]]; then
+	  output=""
+	  for OPTION in $OPTIONS; do
+		  case $OPTION in
+			  "1") output1="-c";;
+			  "2") output2="-B";;
+			  "3") output3="-V";;
+			  "4") output4="-s";;
+			  "5") output5="--force-revert";;
+			  "6") output6="-e 'serial=3'";;
+			  "7") output7="-v";;
+		  esac
+	  done
+	  echo "$output1 $output2 $output3 $output4 $output5 $output6 $output7" > /usr/bin/.args
+	  /usr/bin/palera1n_menu
   else
-      echo "Cancelled"
+	  echo "Cancelled"
   fi
 fi

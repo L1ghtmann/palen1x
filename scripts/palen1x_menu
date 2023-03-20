@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Load functions and variables
 . /usr/bin/common
-PALEN1X_VERSION="1.0.7"
+PALEN1X_VERSION="$(echo $PALEN1X_VERSION)"
 
 export NEWT_COLORS='root=,black
 border=white,black
@@ -22,34 +22,34 @@ whiptail_height="$(($(tput lines) - 6))"
 whiptail_width="$(($(tput cols) - 20))"
 
 while true; do
-  CHOICE="$(whiptail --nocancel --title "palen1x $PALEN1X_VERSION | use arrow keys" --menu '' $whiptail_height $whiptail_width 8 \
-    '1' 'palera1n' \
-    '2' 'SSH' \
-    '3' 'Shell' \
-    '4' 'Shut down' \
-    '5' 'Reboot' 3>&1 1>&2 2>&3)"
-  case "$CHOICE" in
-    1)
-      clear
-      /usr/bin/palera1n_menu
-      ;;
-    2)
-      clear
-      /usr/bin/ssh_into_ios
-      ;;
-    3)
-      clear
-      /bin/bash -i && exit
-      ;;
-    4)
-      palen1x_logo
-      sleep 2
-      /sbin/poweroff
-      ;;
-    5)
-      palen1x_logo
-      sleep 2
-      /sbin/reboot
-      ;;
-  esac
+	CHOICE="$(whiptail --nocancel --title "palen1x-surface $PALEN1X_VERSION | use arrow keys" --menu '' $whiptail_height $whiptail_width 8 \
+		'1' 'palera1n' \
+		'2' 'SSH' \
+		'3' 'Shell' \
+		'4' 'Shut down' \
+		'5' 'Reboot' 3>&1 1>&2 2>&3)"
+	case "$CHOICE" in
+		1)
+			clear
+			/usr/bin/palera1n_menu
+			;;
+		2)
+			clear
+			/usr/bin/ssh_into_ios
+			;;
+		3)
+			clear
+			/bin/bash -i && exit
+			;;
+		4)
+			palen1x_logo
+			sleep 2
+			/sbin/poweroff
+			;;
+		5)
+			palen1x_logo
+			sleep 2
+			/sbin/reboot
+			;;
+	esac
 done

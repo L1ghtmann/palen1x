@@ -24,11 +24,11 @@ fi
 version=$(sysctl -n kern.osrelease)
 
 if [[ $version == 21.* ]]; then
-  value=1800
+	value=1800
 elif [[ $version == 22.* ]]; then
-  value=1900
+	value=1900
 else
-  exit
+	exit
 fi
 
 # Download bootstrap, along with other packages
@@ -59,11 +59,11 @@ uicache -p /var/jb/Applications/Sileo-Nightly.app
 
 # Echo palera1n repo to procursus sources, update sources, & remove leftovers
 {
-    echo "Types: deb"
-    echo "URIs: https://repo.palera.in/"
-    echo "Suites: ./"
-    echo "Components:"
-    echo ""   
+		echo "Types: deb"
+		echo "URIs: https://repo.palera.in/"
+		echo "Suites: ./"
+		echo "Components:"
+		echo ""
 } >> /var/jb/etc/apt/sources.list.d/procursus.sources
 sleep 1
 apt-get update -o Acquire::AllowInsecureRepositories=true

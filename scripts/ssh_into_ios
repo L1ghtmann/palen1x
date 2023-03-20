@@ -20,5 +20,5 @@ clear
 
 blue_echo 'SSHing into your iDevice...'
 ssh -o "ProxyCommand=inetcat $port" -o "UserKnownHostsFile=/dev/null" $user@iPhone || \
-    failed_echo 'Failed to SSH into your iDevice.'
+	failed_echo 'Failed to SSH into your iDevice.'
 enter_to_quit

@@ -18,16 +18,16 @@ actcheckbox=black,green
 
 jbtype="$(whiptail --backtitle 'Only use this if you know what you are doing. This will also wipe your chosen args. ' --title 'Jailbreak type' --menu '' 0 0 0 'Rootful' '' 'Rootless' '' 3>&1 1>&2 2>&3)"
 case "$jbtype" in
-  "Rootful")
-    echo "Rootful selected"
-    echo "Rootful" > /usr/bin/.jbtype
-    rm -r /usr/bin/.args
-    /usr/bin/palera1n_menu
-    ;;
-  "Rootless")
-    echo "Rootless selected"
-    echo "Rootless" > /usr/bin/.jbtype
-    rm -r /usr/bin/.args
-    /usr/bin/palera1n_menu
-    ;;
+	"Rootful")
+		echo "Rootful selected"
+		echo "Rootful" > /usr/bin/.jbtype
+		rm -r /usr/bin/.args
+		/usr/bin/palera1n_menu
+		;;
+	"Rootless")
+		echo "Rootless selected"
+		echo "Rootless" > /usr/bin/.jbtype
+		rm -r /usr/bin/.args
+		/usr/bin/palera1n_menu
+		;;
 esac
