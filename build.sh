@@ -8,18 +8,6 @@
 if [[ $EUID -ne 0 ]]; then
 	echo "$0: This script must be run with sudo or as su. Exiting."
 	exit 1
-elif ! [[ -x $(command -v debootstrap) ]]; then
-	echo "$0: debootstrap not installed. Exiting."
-	exit 2
-elif ! [[ -x $(command -v cpio) ]]; then
-	echo "$0: cpio not installed. Exiting."
-	exit 2
-elif ! [[ -x $(command -v xorriso) ]]; then
-	echo "$0: xorriso not installed. Exiting."
-	exit 2
-elif ! [[ -x $(command -v grub-mkrescue) ]]; then
-	echo "$0: grub-common2 not installed. Exiting."
-	exit 2
 fi
 
 GREEN="$(tput setaf 2)"
