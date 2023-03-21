@@ -2,7 +2,7 @@ name: Build palen1x
 
 on:
   push:
-    branches: [ main ]
+    branches: [ surface ]
     paths:
       - scripts/**
       - build.sh
@@ -20,32 +20,16 @@ jobs:
 
       - name: Build for amd64
         run: |
-          sed -i "/Exit if user isn't root/aVERSION='$(cat version)'" build.sh
-          sed -i "/Exit if user isn't root/aARCH='amd64'" build.sh
-          sudo ./build.sh
-
-      - name: Prepare upload
-        run: |
-          mkdir -p palen1x
-          for i in work/*.iso; do sudo mv $i palen1x; done
+          sudo ARCH=amd64 ./build.sh && sudo mv -v work/*.iso .
 
       - name: Build for i686
         run: |
-          sed -i "s/ARCH='amd64'/ARCH='i686'/g" build.sh
-          sudo ./build.sh
+          sudo ARCH=i686 ./build.sh && sudo mv -v work/*.iso .
 
-      - name: Prepare upload
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          for i in work/*.iso; do sudo mv $i palen1x; done
-
-      - name: Upload artifact
-        uses: wangyucode/sftp-upload-action@v1.4.8
-        with:
-          host: ${{ secrets.NICKCHAN_FTP_HOST }}
-          port: ${{ secrets.NICKCHAN_FTP_PORT }}
-          username: palera1n
-          privateKey: ${{ secrets.NICKCHAN_FTP_KEY }}
-          forceUpload: true
-          dryRun: false
-          localDir: 'palen1x/'
-          remoteDir: '/palera1n/artifacts/palen1x'
+          TAG="${GITHUB_REF##*/}-${GITHUB_SHA:0:7}"
+          gh release create "$TAG" --draft --title "Draft Release"
+          gh release upload "$TAG" ./*.iso
