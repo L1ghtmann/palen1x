@@ -27,33 +27,13 @@ cat << EOF
 		${BLUE}/(((((##${NORMAL}                  build script
 
 EOF
-# Ask for the architecture if variable is empty
-until [[ $ARCH == amd64 || $ARCH == i686 ]]; do
-	echo '1 amd64'
-	echo '2 i686'
-	printf 'Which architecture? amd64 (default) or i686\n'
-	read -r input_arch
-	if [[ $input_arch -eq 1 ]]; then
-		ARCH='amd64'
-	elif [[ $input_arch -eq 2 ]]; then
-		ARCH='i686'
-	else
-		ARCH='amd64'
-	fi
-done
 
 # Install dependencies to build palen1x-surface
 apt-get update
 apt-get install -y --no-install-recommends ca-certificates cpio curl debootstrap grub2-common grub-efi-amd64-bin grub-pc-bin gzip mtools tar xorriso xz-utils
 
 VERSION="$(cat version)"
-
-# Get proper files for amd64 or i686
-if [[ $ARCH == amd64 ]]; then
-	PALERA1N='https://github.com/palera1n/palera1n/releases/latest/download/palera1n-linux-x86_64'
-else
-	PALERA1N='https://github.com/palera1n/palera1n/releases/latest/download/palera1n-linux-x86'
-fi
+PALERA1N='https://github.com/palera1n/palera1n/releases/latest/download/palera1n-linux-x86_64'
 
 # Clean up previous attempts
 umount -v work/rootfs/{dev,sys,proc} >/dev/null 2>&1
@@ -138,4 +118,4 @@ find . | cpio -oH newc | xz -C crc32 --x86 -vz9eT$(nproc --all) > ../iso/boot/in
 popd
 
 # ISO creation
-grub-mkrescue -o "c-palen1x-surface-$VERSION-$ARCH.iso" iso --compress=xz
+grub-mkrescue -o "c-palen1x-surface-$VERSION.iso" iso --compress=xz

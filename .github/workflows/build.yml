@@ -18,13 +18,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Build for amd64
+      - name: Build
         run: |
-          sudo ARCH=amd64 ./build.sh && sudo mv -v work/*.iso .
-
-      - name: Build for i686
-        run: |
-          sudo ARCH=i686 ./build.sh && sudo mv -v work/*.iso .
+          sudo ./build.sh && sudo mv -v work/*.iso .
 
       - name: Publish release
         env:
