@@ -40,14 +40,14 @@
 
 - Guide for palen1x can be found [here](https://ios.cfw.guide/using-palen1x/).
 
-# Building palen1x
+# Building palen1x-surface
 To change the version of palen1x, either change `version` file, or manually specify it with `./build.sh`.
 
 Execute these commands on a Debian-based system.
 
 ```sh
 git clone https://github.com/L1ghtmann/palen1x-surface
-cd palen1x
+cd palen1x-surface
 sudo ./build.sh
 ```
 
@@ -61,3 +61,4 @@ Any contribution is always welcome :3
 - [The Procursus Team](https://github.com/ProcursusTeam/) for [Procursus](https://github.com/ProcursusTeam/Procursus)
 - [ElliesSurviving](https://github.com/ElliesSurviving) and [Classy Car](https://www.reddit.com/user/Hunter_Ware) for testing palen1x on `A9-` devices.
 - [Everyone else who contributed to palen1x](https://github.com/palera1n/palen1x/graphs/contributors) & [palera1n-c](https://github.com/palera1n/palera1n-c/graphs/contributors)
+- [stacko](https://stackoverflow.com/a/72541334)[verflow](https://stackoverflow.com/a/13301399)/[apache](https://mynewt.apache.org/latest/newt/install/newt_linux.html) for misc. information

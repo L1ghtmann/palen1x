@@ -1,4 +1,4 @@
 # /etc/inittab
-::sysinit:/sbin/openrc sysinit
-tty1::respawn:/bin/bash --rcfile /root/.bashrc
-tty2::respawn:/usr/sbin/usbmuxd -f
+init::sysinit:/sbin/openrc sysinit --quiet
+tty1::wait:/bin/bash --rcfile /root/.bashrc +m
+bail::ctrlaltdel:/sbin/reboot -f
