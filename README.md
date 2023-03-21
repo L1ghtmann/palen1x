@@ -61,4 +61,5 @@ Any contribution is always welcome :3
 - [The Procursus Team](https://github.com/ProcursusTeam/) for [Procursus](https://github.com/ProcursusTeam/Procursus)
 - [ElliesSurviving](https://github.com/ElliesSurviving) and [Classy Car](https://www.reddit.com/user/Hunter_Ware) for testing palen1x on `A9-` devices.
 - [Everyone else who contributed to palen1x](https://github.com/palera1n/palen1x/graphs/contributors) & [palera1n-c](https://github.com/palera1n/palera1n-c/graphs/contributors)
+- [linux-surface](https://github.com/linux-surface/surface-aggregator-module) for the surface-aggregator-module
 - [stacko](https://stackoverflow.com/a/72541334)[verflow](https://stackoverflow.com/a/13301399)/[apache](https://mynewt.apache.org/latest/newt/install/newt_linux.html) for misc. information

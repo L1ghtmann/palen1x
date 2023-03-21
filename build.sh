@@ -87,9 +87,21 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/mynew
 	https://raw.githubusercontent.com/JuulLabs-OSS/debian-mynewt/master latest main" \
 	| tee -a /etc/apt/sources.list.d/mynewt.list > /dev/null
 apt update && apt install -y --no-install-recommends linux-image-amd64 \
+														linux-headers-amd64 \
 														sysvinit-core \
-														openrc
-apt remove -y ca-certificates curl gnupg && apt autoremove -y
+														openrc \
+														dkms \
+														make \
+														git
+git clone --recursive --depth=1 https://github.com/linux-surface/surface-aggregator-module/ sam/
+cd sam/module/
+# build for chroot kernel not host
+sed -i 's@uname -r@ls /lib/modules/@g' Makefile
+sed -i 's@dkms add@dkms add -k \$(shell ls /lib/modules/)@' Makefile
+sed -i 's@dkms build@dkms build -k \$(shell ls /lib/modules/)@' Makefile
+sed -i 's@dkms install@dkms install -k \$(shell ls /lib/modules/)@' Makefile
+make -j && make dkms-install
+apt remove -y ca-certificates curl gnupg dkms make git && apt autoremove -y
 apt install -y --no-install-recommends ncurses-base \
 										openssh-client \
 										sshpass \
