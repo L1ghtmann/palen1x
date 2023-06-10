@@ -46,21 +46,22 @@ debootstrap --arch=amd64 --variant=minbase bookworm rootfs http://deb.debian.org
 mount -vo bind /dev rootfs/dev
 mount -vt sysfs sysfs rootfs/sys
 mount -vt proc proc rootfs/proc
+
+# temp fix
+cp -v ../0001-container_of-add-container_of_const-that-preserves-const-ness-of-the-pointer.patch rootfs
+cp -v ../0005-misc-driver-core-make-struct-device_type-uevent-take-a-const.patch rootfs
+
 cat << ! | chroot rootfs
 # apt install -y --no-install-recommends extrepo
 # extrepo enable surface-linux
-apt update && apt install -y --no-install-recommends ca-certificates curl gnupg
+apt install -y --no-install-recommends ca-certificates curl gnupg
 curl -fsSL https://raw.githubusercontent.com/JuulLabs-OSS/debian-mynewt/HEAD/mynewt.gpg.key | gpg --dearmor -o /usr/share/keyrings/mynewt.gpg.key
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/mynewt.gpg.key] \
 	https://raw.githubusercontent.com/JuulLabs-OSS/debian-mynewt/master latest main" \
 	| tee -a /etc/apt/sources.list.d/mynewt.list > /dev/null
-apt update && apt install -y --no-install-recommends linux-image-amd64 \
-														linux-headers-amd64 \
-														sysvinit-core \
-														openrc \
-														dkms \
-														make \
-														git
+apt update
+apt install -y --no-install-recommends linux-image-amd64 linux-headers-amd64 sysvinit-core openrc dkms make git patch ncurses-base openssh-client sshpass usbmuxd whiptail newt
+
 git clone --recursive --depth=1 https://github.com/linux-surface/surface-aggregator-module/ sam/
 cd sam/module/
 # build for chroot kernel not host
@@ -68,14 +69,14 @@ sed -i 's@uname -r@ls /lib/modules/@g' Makefile
 sed -i 's@dkms add@dkms add -k \$(shell ls /lib/modules/)@' Makefile
 sed -i 's@dkms build@dkms build -k \$(shell ls /lib/modules/)@' Makefile
 sed -i 's@dkms install@dkms install -k \$(shell ls /lib/modules/)@' Makefile
-make -j && make dkms-install
-apt remove -y ca-certificates curl gnupg dkms make git && apt autoremove -y
-apt install -y --no-install-recommends ncurses-base \
-										openssh-client \
-										sshpass \
-										usbmuxd \
-										whiptail \
-										newt
+# temp fix
+patch /usr/src/linux-headers-*-common/include/linux/container_of.h < ../../0001-container_of-add-container_of_const-that-preserves-const-ness-of-the-pointer.patch
+patch /usr/src/linux-headers-*-common/include/linux/device.h < ../../0005-misc-driver-core-make-struct-device_type-uevent-take-a-const.patch
+make -j && make dkms-install || exit 1
+
+cd ../../ && rm -r sam/ *.patch
+apt remove -y ca-certificates curl gnupg dkms make git patch
+apt autoremove -y
 apt clean
 !
 
