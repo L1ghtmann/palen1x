@@ -21,7 +21,7 @@ jobs:
           curl -L https://lore.kernel.org/lkml/20230111113018.459199-6-gregkh@linuxfoundation.org/t.mbox.gz -o t2.mbox.gz
           gzip -d t.mbox.gz t2.mbox.gz
           python3 mbox_split.py t.mbox
-          python3 mbox_split.py t2.mbox
+          python3 mbox_split.py t2.mbox || true
           mv -v 0001-container_of-add-container_of_const-that-preserves-const-ness-of-the-pointer.patch ../
           mv -v 0005-misc-driver-core-make-struct-device_type-uevent-take-a-const.patch ../
 
