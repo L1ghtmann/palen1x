@@ -82,7 +82,7 @@ apt clean
 
 # Echo TUI configurations
 echo 'palen1x-surface' > rootfs/etc/hostname
-echo "PATH=$PATH:$HOME/.local/bin" >> rootfs/root/.bashrc
+echo "PATH=$PATH:$HOME/.local/bin" > rootfs/root/.bashrc
 echo "export PALEN1X_VERSION='$VERSION'" >> rootfs/root/.bashrc
 echo '/usr/bin/palen1x_menu' >> rootfs/root/.bashrc
 echo "Rootful" > rootfs/usr/bin/.jbtype
@@ -119,4 +119,4 @@ find . | cpio -oH newc | xz -C crc32 --x86 -vz9eT$(nproc --all) > ../iso/boot/in
 popd
 
 # ISO creation
-grub-mkrescue -o "c-palen1x-surface-$VERSION.iso" iso --compress=xz
+grub-mkrescue -o "palen1x-surface-$VERSION.iso" iso --compress=xz
