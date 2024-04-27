@@ -33,7 +33,7 @@ apt-get update
 apt-get install -y --no-install-recommends ca-certificates cpio curl debootstrap grub2-common grub-efi-amd64-bin grub-pc-bin gzip mtools tar xorriso xz-utils
 
 VERSION="$(cat version)"
-PALERA1N='https://github.com/palera1n/palera1n/releases/download/v2.0.0-beta.8/palera1n-linux-x86_64'
+PALERA1N='https://github.com/palera1n/palera1n/releases/download/v2.0.0-beta.9.1/palera1n-linux-x86_64'
 # Clean up previous attempts
 umount -v work/rootfs/{dev,sys,proc} >/dev/null 2>&1
 rm -rf work
