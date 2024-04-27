@@ -4,7 +4,7 @@
 <br>
 <p align="center">
 <strong>Surface-compatible Linux distro that lets you install <a href="https://github.com/palera1n/palera1n">palera1n</a>.</strong><br>
-    It aims to be easy to use, have a nice interface and support 32 and 64 bit CPUs.
+    It aims to be easy to use and have a nice interface.
 </p>
 <p align="center">
     <a href="#Information">Information</a> •

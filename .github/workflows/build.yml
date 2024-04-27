@@ -10,20 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Download Patches
-        run: |
-          # temp fix
-          mkdir patches && cd patches
-          curl -LO https://gist.githubusercontent.com/bonzini/d5bc1946475487167c529f9699e39512/raw/beba92906e2ba0aa81abfe6045be2ab5758a4a0e/mbox_split.py
-          curl -LO https://lore.kernel.org/lkml/20221205121206.166576-1-gregkh@linuxfoundation.org/t.mbox.gz
-          curl -L https://lore.kernel.org/lkml/20230111113018.459199-6-gregkh@linuxfoundation.org/t.mbox.gz -o t2.mbox.gz
-          gzip -d t.mbox.gz t2.mbox.gz
-          python3 mbox_split.py t.mbox
-          python3 mbox_split.py t2.mbox || true
-          mv -v 0001-container_of-add-container_of_const-that-preserves-const-ness-of-the-pointer.patch ../
-          mv -v 0005-misc-driver-core-make-struct-device_type-uevent-take-a-const.patch ../
+        uses: actions/checkout@v4
 
       - name: Build
         run: |
